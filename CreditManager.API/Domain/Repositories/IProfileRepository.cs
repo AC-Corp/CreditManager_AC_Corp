@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CreditManager.API.Domain.Repositories
 {
-    public interface IEntityRepository
+    public interface IProfileRepository
     {
     }
 }

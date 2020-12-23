@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CreditManager.API.Domain.Services.Communications
 {
-    public class EntityResponse : BaseResponse<Entity>
+    public class TransactionDetailsResponse : BaseResponse<TransactionDetails>
     {
-        public EntityResponse(Entity resource) : base(resource)
+        public TransactionDetailsResponse(TransactionDetails resource) : base(resource)
         {
         }
 
-        public EntityResponse(string message) : base(message)
+        public TransactionDetailsResponse(string message) : base(message)
         {
         }
     }
