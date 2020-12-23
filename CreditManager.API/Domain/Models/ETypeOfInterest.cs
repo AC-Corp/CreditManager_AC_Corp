@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace CreditManager.API.Domain.Models
 {
-    public class Entity
+    public enum ETypeOfInterest
     {
+        Simple,
+        Nominal,
+        Efectivo
     }
 }
