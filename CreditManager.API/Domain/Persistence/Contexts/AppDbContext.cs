@@ -40,7 +40,7 @@ namespace CreditManager.API.Domain.Persistence.Contexts
                 .HasOne(p => p.User)
                 .WithOne(u => u.Profile);
             #endregion
-
+            
             #region User Entity
             builder.Entity<User>().ToTable("Users").HasKey(u => u.Id);
             builder.Entity<User>().Property(u => u.Id)

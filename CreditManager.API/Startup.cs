@@ -39,6 +39,7 @@ namespace CreditManager.API
             services.RegisterClassesAndInterfaces();//Our Extension Method, check his file for more info
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddCustomSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +60,8 @@ namespace CreditManager.API
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCustomSwagger();
         }
     }
 }

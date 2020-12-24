@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CreditManager.API.Resources
 {
-    public class SaveEntityResource
+    public class SaveTransactionResource
     {
     }
 }

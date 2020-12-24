@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace CreditManager.API.Mapping
 {
-    public class ModelToResourceProfile : AutoMapper.Profile
+    public class ResourceToModelProfile : AutoMapper.Profile
     {
-        public ModelToResourceProfile()
+        public ResourceToModelProfile()
         {
-            CreateMap<Account, AccountResource>();
-            CreateMap<Profile, ProfileResource>();
-            CreateMap<User, UserResource>();
-            CreateMap<Transaction, TransactionResource>();
-            CreateMap<TransactionDetails, TransactionDetailsResource>();
+            CreateMap<AccountResource, Account>();
+            CreateMap<ProfileResource, Profile>();
+            CreateMap<UserResource, User>();
+            CreateMap<TransactionResource, Transaction>();
+            CreateMap<TransactionDetailsResource, TransactionDetails>();
+
 
             /* FALTA PONER ESTO PARA LOS ENUMS
              * CreateMap<Product, ProductResource>()

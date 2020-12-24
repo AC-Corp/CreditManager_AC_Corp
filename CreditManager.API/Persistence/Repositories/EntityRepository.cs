@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CreditManager.API.Persistence.Repositories
 {
-    public class EntityRepository : BaseRepository, IEntityRepository
+    public class EntityRepository : BaseRepository//, IEntityRepository
     {
         public EntityRepository(AppDbContext context) : base(context)
         {
