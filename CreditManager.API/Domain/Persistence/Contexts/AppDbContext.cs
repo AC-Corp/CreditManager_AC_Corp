@@ -24,6 +24,13 @@ namespace CreditManager.API.Domain.Persistence.Contexts
         {
             base.OnModelCreating(builder);
 
+            //profile Entity
+            builder.Entity<Profile>().ToTable("profiles");
+            builder.Entity<Profile>()
+                .HasOne(p => p.User)
+                .WithOne(p => p.Profile)
+                .HasForeignKey<Profile>(prop => prop.Id);
+
             #region Profile Entity
             builder.Entity<Profile>().ToTable("Profiles").HasKey(p => p.Id);
             builder.Entity<Profile>().Property(p => p.Id)
