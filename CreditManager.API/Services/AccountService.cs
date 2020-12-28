@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CreditManager.API.Services
 {
-    public class EntityService //: IEntityService
+    public class AccountService : IAccountService
     {
     }
 }

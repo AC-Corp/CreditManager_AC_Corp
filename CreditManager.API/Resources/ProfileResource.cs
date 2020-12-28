@@ -16,6 +16,8 @@ namespace CreditManager.API.Resources
         public DateTime RegisterDate { get; set; }
         public string UserType { get; set; }
         public string ImageUrl { get; set; }
-        public UserResource User { get; set; }
+
+        public int UserId { get; set; }
+        //public UserResource User { get; set; }
     }
 }

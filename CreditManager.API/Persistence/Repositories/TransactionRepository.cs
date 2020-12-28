@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace CreditManager.API.Persistence.Repositories
 {
-    public class EntityRepository : BaseRepository//, IEntityRepository
+    public class TransactionRepository : BaseRepository, ITransactionRepository
     {
-        public EntityRepository(AppDbContext context) : base(context)
-        {
-        }
+        public TransactionRepository(AppDbContext context) : base(context) { }
     }
 }

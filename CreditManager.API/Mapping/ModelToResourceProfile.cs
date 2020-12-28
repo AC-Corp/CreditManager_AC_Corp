@@ -18,7 +18,7 @@ namespace CreditManager.API.Mapping
             CreateMap<Transaction, TransactionResource>();
             CreateMap<TransactionDetails, TransactionDetailsResource>();
 
-            /* FALTA PONER ESTO PARA LOS ENUMS
+            /* No necesario
              * CreateMap<Product, ProductResource>()
                .ForMember(src => src.UnitOfMeasurement,
                opt => opt.MapFrom(src => src.UnitOfMeasurement

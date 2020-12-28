@@ -14,7 +14,7 @@ namespace CreditManager.API.Extensions
     {
         public static void RegisterClassesAndInterfaces(this IServiceCollection services)
         {
-           /* #region Repositories
+           #region Repositories
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
@@ -28,7 +28,7 @@ namespace CreditManager.API.Extensions
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionDetailsService, TransactionDetailsService>();
-            #endregion*/
+            #endregion
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

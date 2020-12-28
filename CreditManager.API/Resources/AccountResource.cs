@@ -15,7 +15,11 @@ namespace CreditManager.API.Resources
         public float RateInterest { get; set; }
         public float MaintenanceCost { get; set; }
         public DateTime DateOfLastPayment { get; set; }//Ver si mejor se pasa como string
-        public UserResource Owner { get; set; }
-        public UserResource Company { get; set; }
+
+        public int OwnerId { get; set; }
+        //public UserResource Owner { get; set; }
+
+        public int CompanyId { get; set; }
+        //public UserResource Company { get; set; }
     }
 }

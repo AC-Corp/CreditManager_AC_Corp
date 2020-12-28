@@ -18,6 +18,9 @@ namespace CreditManager.API.Resources
         public string TypeOfInterest { get; set; }
         public float RateInterest { get; set; }
         public float MaintenanceCost { get; set; }
-            //por definir si se pasa los ID del cliente y establecimiento
+        [Required]
+        public int OwnerId { get; set; }
+        [Required]
+        public int CompanyId { get; set; }
     }
 }

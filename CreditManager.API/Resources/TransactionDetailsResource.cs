@@ -11,6 +11,7 @@ namespace CreditManager.API.Resources
         public string Name { get; set; }
         public string Description { get; set; }
         public float Price { get; set; }
-        public TransactionResource Transaction { get; set; }
+        public int TransactionId { get; set; }
+        //public TransactionResource Transaction { get; set; }
     }
 }
