@@ -13,6 +13,10 @@ namespace CreditManager.API.Domain.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public IList<Account> Accounts { get; set; } = new List<Account>();
+        //public IList<Account> Accounts { get; set; } = new List<Account>();
+
+        //TEST DE EF Core
+        public IList<Account> CustomerAccounts { get; set; } = new List<Account>();
+        public IList<Account> CompanyAccounts { get; set; } = new List<Account>();
     }
 }

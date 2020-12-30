@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using CreditManager.API.Domain.Models;
 using CreditManager.API.Domain.Services;
+using CreditManager.API.Resources;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,6 +21,15 @@ namespace CreditManager.API.Controllers
         {
             _transactionService = transactionService;
             _mapper = mapper;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<TransactionResource>> GetAllAsync()
+        {
+            var transactions = await _transactionService.ListAsync();
+            var resources = _mapper
+                .Map<IEnumerable<Transaction>, IEnumerable<TransactionResource>>(transactions);
+            return resources;
         }
     }
 }

@@ -38,9 +38,14 @@ namespace CreditManager.API.Domain.Persistence.Contexts
             builder.Entity<Profile>().Property(p => p.ImageUrl).HasMaxLength(255);
             builder.Entity<Profile>()
                 .HasOne(p => p.User)
-                .WithOne(u => u.Profile);
+                .WithOne(u => u.Profile)
+                .HasForeignKey<User>(u => u.ProfileId);
+            builder.Entity<Profile>().HasData(
+                new Profile { Id = 1, FirstName = "Arthur", LastName="Valladares", RegisterDate = DateTime.Now, Phone = "9265345", UserType = EUserType.Customer},
+                new Profile { Id = 2, CompanyName = "Tienda Don Pepe", RegisterDate = DateTime.Now, Phone = "92745245", UserType = EUserType.OwnerCompany }
+                );
             #endregion
-            
+
             #region User Entity
             builder.Entity<User>().ToTable("Users").HasKey(u => u.Id);
             builder.Entity<User>().Property(u => u.Id)
@@ -48,13 +53,17 @@ namespace CreditManager.API.Domain.Persistence.Contexts
             builder.Entity<User>().Property(u => u.Email).IsRequired().HasMaxLength(30);
             builder.Entity<User>().Property(u => u.Password).IsRequired().HasMaxLength(30);
             builder.Entity<User>()
-                .HasMany(u => u.Accounts)
+                .HasMany(u => u.CustomerAccounts)
                 .WithOne(a => a.Owner)
                 .HasForeignKey(a => a.OwnerId);
             builder.Entity<User>()
-                .HasMany(u => u.Accounts)
+                .HasMany(u => u.CompanyAccounts)
                 .WithOne(a => a.Company)
-                .HasForeignKey(a => a.CompanyId);
+                .HasForeignKey(a => a.CompanyId).OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<User>().HasData(
+                    new User { Id = 1, Email = "arthur1610@live.com", Password = "123", ProfileId = 1},
+                    new User { Id = 2, Email = "pepe@gmail.com", Password="123", ProfileId=2}
+                );
             #endregion
 
             #region Account Entity
@@ -70,7 +79,10 @@ namespace CreditManager.API.Domain.Persistence.Contexts
                 .HasMany(a => a.Transactions)
                 .WithOne(t => t.Account)
                 .HasForeignKey(t => t.AccountNumber);
-
+            builder.Entity<Account>().HasData(
+                    new Account { AccountNumber="123456789", AvailableMoney = 500, CompanyId = 2, Currency = ECurrency.Soles, 
+                        DateOfLastPayment = DateTime.Now, OwnerId = 1, RateInterest = 3, TypeOfInterest = ETypeOfInterest.Efectivo }
+                );
             #endregion
 
             #region Transaction Entity
@@ -83,10 +95,11 @@ namespace CreditManager.API.Domain.Persistence.Contexts
                 .HasMany(t => t.TransactionDetails)
                 .WithOne(td => td.Transaction)
                 .HasForeignKey(td => td.TransactionId);
+            // TODO: falta ver que cuando se agrege un movimiento, se modifique el saldo y la deuda, esto se haria en el Service
             #endregion
 
             #region TransactionDetail Entity
-            builder.Entity<TransactionDetails>().ToTable("TransactionDetails").HasKey(t => t.Id);
+            builder.Entity<TransactionDetails>().ToTable("TransactionsDetails").HasKey(t => t.Id);
             builder.Entity<TransactionDetails>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<TransactionDetails>().Property(t => t.Name).HasMaxLength(50);
             builder.Entity<TransactionDetails>().Property(t => t.Description).HasMaxLength(200);

@@ -33,6 +33,7 @@ namespace CreditManager.API
 
             services.AddDbContext<AppDbContext>(options =>
             {
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 options.UseInMemoryDatabase("credit-manager-api-in-memory");
             });
 
