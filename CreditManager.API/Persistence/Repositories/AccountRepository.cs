@@ -13,6 +13,16 @@ namespace CreditManager.API.Persistence.Repositories
     {
         public AccountRepository(AppDbContext context) : base(context) { }
 
+        public async Task AddAsync(Account account)
+        {
+            await _context.Accounts.AddAsync(account);
+        }
+
+        public async Task<Account> FindByOwnerIdAndCompanyIdAsync(int ownerId, int companyId)
+        {
+            return await _context.Accounts.Where(a => a.OwnerId == ownerId && a.CompanyId == companyId).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Account>> ListAsync()
         {
             return await _context.Accounts.ToListAsync();

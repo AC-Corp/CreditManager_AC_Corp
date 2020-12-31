@@ -1,4 +1,5 @@
 ﻿using CreditManager.API.Domain.Models;
+using CreditManager.API.Domain.Services.Communications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace CreditManager.API.Domain.Services
     public interface IAccountService
     {
         Task<IEnumerable<Account>> ListAsync();
+        Task<AccountResponse> SaveAsync(Account account);
     }
 }

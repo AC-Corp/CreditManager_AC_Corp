@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CreditManager.API.Domain.Models;
 using CreditManager.API.Domain.Services;
+using CreditManager.API.Extensions;
 using CreditManager.API.Resources;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -30,6 +31,21 @@ namespace CreditManager.API.Controllers
             var resources = _mapper
                 .Map<IEnumerable<Account>, IEnumerable<AccountResource>>(accounts);
             return resources;
+        }
+
+        //TODO: Asignar Creditos a Cliente
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] SaveAccountResource resource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessages());
+            var order = _mapper.Map<SaveAccountResource, Account>(resource);
+            var result = await _accountService.SaveAsync(order);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var orderResource = _mapper
+                .Map<Account, AccountResource>(result.Resource);
+            return Ok(orderResource);
         }
     }
 }

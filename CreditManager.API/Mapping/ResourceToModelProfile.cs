@@ -18,6 +18,11 @@ namespace CreditManager.API.Mapping
             CreateMap<TransactionResource, Transaction>();
             CreateMap<TransactionDetailsResource, TransactionDetails>();
 
+            CreateMap<SaveAccountResource, Account>();
+            CreateMap<SaveProfileResource, Profile>();
+            CreateMap<SaveTransactionDetailsResource, TransactionDetails>();
+            CreateMap<SaveTransactionResource, Transaction>();
+            CreateMap<SaveUserResource, User>();
 
             /* FALTA PONER ESTO PARA LOS ENUMS
              * CreateMap<Product, ProductResource>()

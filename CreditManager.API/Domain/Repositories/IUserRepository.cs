@@ -9,5 +9,6 @@ namespace CreditManager.API.Domain.Repositories
     public interface IUserRepository
     {
         Task<IEnumerable<User>> ListAsync();
+        Task<string> GetDniById(int id);
     }
 }

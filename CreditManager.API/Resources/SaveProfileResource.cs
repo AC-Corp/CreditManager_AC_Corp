@@ -12,8 +12,12 @@ namespace CreditManager.API.Resources
         public string FirstName { get; set; }
         [MaxLength(30)]
         public string LastName { get; set; }
+        [MaxLength(8)]
+        public string Dni { get; set; }
         [MaxLength(30)]
         public string CompanyName { get; set; }
+        [MaxLength(15)]
+        public string Ruc { get; set; }
         public DateTime DateOfBirthday { get; set; }
         [Required]
         [MaxLength(9)]

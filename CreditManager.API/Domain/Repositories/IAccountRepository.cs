@@ -9,5 +9,9 @@ namespace CreditManager.API.Domain.Repositories
     public interface IAccountRepository
     {
         Task<IEnumerable<Account>> ListAsync();
+
+        Task AddAsync(Account account);
+
+        Task<Account> FindByOwnerIdAndCompanyIdAsync(int ownerId, int companyId); 
     }
 }

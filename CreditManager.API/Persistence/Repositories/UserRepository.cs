@@ -13,6 +13,12 @@ namespace CreditManager.API.Persistence.Repositories
     {
         public UserRepository(AppDbContext context) : base(context) { }
 
+        public async Task<string> GetDniById(int id)
+        {
+            var user = await _context.Users.Include(u => u.Profile).Where(u => u.Id == id).FirstOrDefaultAsync();
+            return user.Profile.Dni; 
+        }
+
         public async Task<IEnumerable<User>> ListAsync()
         {
             return await _context.Users.ToListAsync();
