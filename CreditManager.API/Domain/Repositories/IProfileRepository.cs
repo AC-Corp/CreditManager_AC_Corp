@@ -9,5 +9,7 @@ namespace CreditManager.API.Domain.Repositories
     public interface IProfileRepository
     {
         Task<IEnumerable<Profile>> ListAsync();
+
+        Task AddAsync(Profile profile);
     }
 }
