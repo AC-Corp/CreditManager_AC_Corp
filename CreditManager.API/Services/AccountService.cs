@@ -47,6 +47,7 @@ namespace CreditManager.API.Services
                 {
                     await _accountRepository.AddAsync(account);
                     await _unitOfWork.CompleteAsync();
+                    // TODO: Luego de haber registrado la cuenta, se le envia un correo al cliente con los datos de su nuevo credito
                     return new AccountResponse(account);
                 }
                 catch (Exception ex)

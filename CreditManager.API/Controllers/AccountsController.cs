@@ -33,7 +33,6 @@ namespace CreditManager.API.Controllers
             return resources;
         }
 
-        //TODO: Asignar Creditos a Cliente
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveAccountResource resource)
         {
@@ -46,6 +45,36 @@ namespace CreditManager.API.Controllers
             var orderResource = _mapper
                 .Map<Account, AccountResource>(result.Resource);
             return Ok(orderResource);
+        }
+
+
+
+        // TODO: Aumentar Linea de Credito
+        [HttpPut("credit-{id}")]
+        public async Task<IActionResult> PutCreditAsync(string id, [FromBody] SaveAccountResource resource)
+        {
+            //var order = _mapper.Map<SaveAccountResource, Account>(resource);
+            //var result = await _accountService.UpdateAsync(id, order);
+
+            /*if (!result.Success)
+                return BadRequest(result.Message);
+            var orderResource = _mapper
+                .Map<Account, AccountResource>(result.Resource);*/
+            return Ok(/*orderResource*/);
+        }
+
+        // TODO: Modificar Tasa y Tipo de Interes
+        [HttpPut("interest-{id}")]
+        public async Task<IActionResult> PutInterestAsync(string id, [FromBody] SaveAccountResource resource)
+        {
+            //var order = _mapper.Map<SaveAccountResource, Account>(resource);
+            //var result = await _accountService.UpdateAsync(id, order);
+
+            /*if (!result.Success)
+                return BadRequest(result.Message);
+            var orderResource = _mapper
+                .Map<Account, AccountResource>(result.Resource);*/
+            return Ok(/*orderResource*/);
         }
     }
 }
