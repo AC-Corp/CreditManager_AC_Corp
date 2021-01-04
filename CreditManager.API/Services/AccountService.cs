@@ -33,7 +33,7 @@ namespace CreditManager.API.Services
             var existingAccount = await _accountRepository.FindByOwnerIdAndCompanyIdAsync(account.OwnerId, account.CompanyId);
             if(existingAccount is null)
             {
-                var dni = await _userRepository.GetDniById(account.OwnerId);
+                var dni = await _userRepository.FindDniById(account.OwnerId);
 
                 if (string.IsNullOrEmpty(dni))
                 {

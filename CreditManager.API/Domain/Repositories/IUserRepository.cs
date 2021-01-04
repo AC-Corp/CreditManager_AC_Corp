@@ -9,6 +9,8 @@ namespace CreditManager.API.Domain.Repositories
     public interface IUserRepository
     {
         Task<IEnumerable<User>> ListAsync();
-        Task<string> GetDniById(int id);
+        Task<string> FindDniById(int id);
+        Task<bool> FindByProfileId(int profileId);
+        Task AddAsync(User user);
     }
 }
