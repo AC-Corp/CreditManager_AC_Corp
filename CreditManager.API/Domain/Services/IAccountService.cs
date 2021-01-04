@@ -11,5 +11,7 @@ namespace CreditManager.API.Domain.Services
     {
         Task<IEnumerable<Account>> ListAsync();
         Task<AccountResponse> SaveAsync(Account account);
+        Task<AccountResponse> UpdateInterestAsync(string accountNumber, Account account);
+        Task<AccountResponse> UpdateAmountAsync(string accountNumber, Account account);
     }
 }

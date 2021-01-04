@@ -10,6 +10,7 @@ namespace CreditManager.API.Resources
     {
         [Required]
         public float AvailableMoney { get; set; }
+
         [Required]
         [MaxLength(10)]
         public string Currency { get; set; }

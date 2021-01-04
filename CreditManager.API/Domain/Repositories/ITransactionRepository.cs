@@ -9,5 +9,6 @@ namespace CreditManager.API.Domain.Repositories
     public interface ITransactionRepository
     {
         Task<IEnumerable<Transaction>> ListAsync();
+        Task AddAsync(Transaction transaction);
     }
 }

@@ -10,8 +10,12 @@ namespace CreditManager.API.Domain.Repositories
     {
         Task<IEnumerable<Account>> ListAsync();
 
+        Task<Account> FindByAccountNumberAsync(string accountNumber);
+
         Task AddAsync(Account account);
 
-        Task<Account> FindByOwnerIdAndCompanyIdAsync(int ownerId, int companyId); 
+        Task<Account> FindByOwnerIdAndCompanyIdAsync(int ownerId, int companyId);
+
+        void Update(Account account);
     }
 }

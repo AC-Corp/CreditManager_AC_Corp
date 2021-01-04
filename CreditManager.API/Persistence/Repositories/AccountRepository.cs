@@ -18,6 +18,11 @@ namespace CreditManager.API.Persistence.Repositories
             await _context.Accounts.AddAsync(account);
         }
 
+        public async Task<Account> FindByAccountNumberAsync(string accountNumber)
+        {
+            return await _context.Accounts.FindAsync(accountNumber);
+        }
+
         public async Task<Account> FindByOwnerIdAndCompanyIdAsync(int ownerId, int companyId)
         {
             return await _context.Accounts.Where(a => a.OwnerId == ownerId && a.CompanyId == companyId).FirstOrDefaultAsync();
@@ -26,6 +31,11 @@ namespace CreditManager.API.Persistence.Repositories
         public async Task<IEnumerable<Account>> ListAsync()
         {
             return await _context.Accounts.ToListAsync();
+        }
+
+        public void Update(Account account)
+        {
+            _context.Accounts.Update(account);
         }
     }
 }

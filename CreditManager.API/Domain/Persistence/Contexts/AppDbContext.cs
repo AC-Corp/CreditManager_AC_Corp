@@ -24,13 +24,6 @@ namespace CreditManager.API.Domain.Persistence.Contexts
         {
             base.OnModelCreating(builder);
 
-            //profile Entity
-            builder.Entity<Profile>().ToTable("profiles");
-            builder.Entity<Profile>()
-                .HasOne(p => p.User)
-                .WithOne(p => p.Profile)
-                .HasForeignKey<Profile>(prop => prop.Id);
-
             #region Profile Entity
             builder.Entity<Profile>().ToTable("Profiles").HasKey(p => p.Id);
             builder.Entity<Profile>().Property(p => p.Id)
@@ -52,7 +45,7 @@ namespace CreditManager.API.Domain.Persistence.Contexts
                 .WithOne(u => u.Profile)
                 .HasForeignKey<User>(u => u.ProfileId);
             builder.Entity<Profile>().HasData(
-                new Profile { Id = 1, FirstName = "Arthur", LastName="Valladares", Dni="71222449", RegisterDate = DateTime.Now, Phone = "9265345", UserType = EUserType.Customer},
+                new Profile { Id = 1, FirstName = "Arthur", LastName = "Valladares", Dni = "71222449", RegisterDate = DateTime.Now, Phone = "9265345", UserType = EUserType.Customer },
                 new Profile { Id = 3, FirstName = "Javier", LastName = "Nole", Dni = "72565986", RegisterDate = DateTime.Now, Phone = "7845693", UserType = EUserType.Customer },
                 new Profile { Id = 2, CompanyName = "Tienda Don Pepe", RegisterDate = DateTime.Now, Phone = "92745245", UserType = EUserType.OwnerCompany }
                 );
@@ -73,9 +66,9 @@ namespace CreditManager.API.Domain.Persistence.Contexts
                 .WithOne(a => a.Company)
                 .HasForeignKey(a => a.CompanyId).OnDelete(DeleteBehavior.Restrict);
             builder.Entity<User>().HasData(
-                    new User { Id = 1, Email = "arthur1610@live.com", Password = "123", ProfileId = 1},
+                    new User { Id = 1, Email = "arthur1610@live.com", Password = "123", ProfileId = 1 },
                     new User { Id = 3, Email = "javier1610@live.com", Password = "123", ProfileId = 3 },
-                    new User { Id = 2, Email = "pepe@gmail.com", Password="123", ProfileId=2}
+                    new User { Id = 2, Email = "pepe@gmail.com", Password = "123", ProfileId = 2 }
                 );
             #endregion
 
@@ -93,8 +86,29 @@ namespace CreditManager.API.Domain.Persistence.Contexts
                 .WithOne(t => t.Account)
                 .HasForeignKey(t => t.AccountNumber);
             builder.Entity<Account>().HasData(
-                    new Account { AccountNumber="71222449186", AvailableMoney = 500, CompanyId = 2, Currency = ECurrency.Soles, 
-                        DateOfLastPayment = DateTime.Now, OwnerId = 1, RateInterest = 3, TypeOfInterest = ETypeOfInterest.Efectivo }
+                    new Account
+                    {
+                        AccountNumber = "71222449186",
+                        AvailableMoney = 500,
+                        CompanyId = 2,
+                        Currency = ECurrency.Soles,
+                        DateOfLastPayment = DateTime.Now,
+                        OwnerId = 1,
+                        RateInterest = 3,
+                        TypeOfInterest = ETypeOfInterest.Efectivo
+                    },
+                    new Account
+                    {
+                        AccountNumber = "72565986785",
+                        AvailableMoney = 450,
+                        DebtMoney = 150,
+                        CompanyId = 2,
+                        Currency = ECurrency.Soles,
+                        DateOfLastPayment = DateTime.Now,
+                        OwnerId = 1,
+                        RateInterest = 3,
+                        TypeOfInterest = ETypeOfInterest.Efectivo
+                    }
                 );
             #endregion
 

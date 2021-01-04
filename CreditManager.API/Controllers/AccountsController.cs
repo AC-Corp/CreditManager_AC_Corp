@@ -53,28 +53,27 @@ namespace CreditManager.API.Controllers
         [HttpPut("credit-{id}")]
         public async Task<IActionResult> PutCreditAsync(string id, [FromBody] SaveAccountResource resource)
         {
-            //var order = _mapper.Map<SaveAccountResource, Account>(resource);
-            //var result = await _accountService.UpdateAsync(id, order);
+            var order = _mapper.Map<SaveAccountResource, Account>(resource);
+            var result = await _accountService.UpdateAmountAsync(id, order);
 
-            /*if (!result.Success)
+            if (!result.Success)
                 return BadRequest(result.Message);
             var orderResource = _mapper
-                .Map<Account, AccountResource>(result.Resource);*/
-            return Ok(/*orderResource*/);
+                .Map<Account, AccountResource>(result.Resource);
+            return Ok(orderResource);
         }
 
-        // TODO: Modificar Tasa y Tipo de Interes
         [HttpPut("interest-{id}")]
         public async Task<IActionResult> PutInterestAsync(string id, [FromBody] SaveAccountResource resource)
         {
-            //var order = _mapper.Map<SaveAccountResource, Account>(resource);
-            //var result = await _accountService.UpdateAsync(id, order);
+            var account = _mapper.Map<SaveAccountResource, Account>(resource);
+            var result = await _accountService.UpdateInterestAsync(id, account);
 
-            /*if (!result.Success)
+            if (!result.Success)
                 return BadRequest(result.Message);
-            var orderResource = _mapper
-                .Map<Account, AccountResource>(result.Resource);*/
-            return Ok(/*orderResource*/);
+            var accountResource = _mapper
+                .Map<Account, AccountResource>(result.Resource);
+            return Ok(accountResource);
         }
     }
 }

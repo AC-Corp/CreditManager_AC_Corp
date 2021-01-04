@@ -13,14 +13,16 @@ namespace CreditManager.API.Services
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly ITransactionRepository _transactionRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AccountService(IAccountRepository accountRepository, IUserRepository userRepository, IUnitOfWork unitOfWork)
+        public AccountService(IAccountRepository accountRepository, IUserRepository userRepository, IUnitOfWork unitOfWork, ITransactionRepository transactionRepository)
         {
             _accountRepository = accountRepository;
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _transactionRepository = transactionRepository;
         }
 
         public async Task<IEnumerable<Account>> ListAsync()
@@ -31,7 +33,7 @@ namespace CreditManager.API.Services
         public async Task<AccountResponse> SaveAsync(Account account)
         {
             var existingAccount = await _accountRepository.FindByOwnerIdAndCompanyIdAsync(account.OwnerId, account.CompanyId);
-            if(existingAccount is null)
+            if (existingAccount is null)
             {
                 var dni = await _userRepository.GetDniById(account.OwnerId);
 
@@ -60,6 +62,65 @@ namespace CreditManager.API.Services
                 return new AccountResponse($"The client with ID {account.OwnerId} has already have an account in the company with ID {account.CompanyId}");
             }
 
+        }
+
+        public async Task<AccountResponse> UpdateAmountAsync(string accountNumber, Account account)
+        { // TODO: FALTA COLOCAR EL ENUM DE TRANSACTION, PROBAR EL METODO Y VER QUE SI SE GUARDE EL MOVIMIENTO
+            var existingAccount = await _accountRepository.FindByAccountNumberAsync(accountNumber);
+
+            if (existingAccount == null) { return new AccountResponse("Account not found"); }
+
+            Transaction newtransaction = new Transaction
+            {
+                AccountNumber = existingAccount.AccountNumber,
+                Date = DateTimeGetter.GetDateTimeFromPeru(),
+                TotalAmount = account.AvailableMoney - existingAccount.AvailableMoney, 
+                Type = 'A'
+            };
+
+
+            existingAccount.AvailableMoney = account.AvailableMoney;
+
+            try
+            {
+                _accountRepository.Update(existingAccount);
+                await _transactionRepository.AddAsync(newtransaction);
+                await _unitOfWork.CompleteAsync();
+
+                return new AccountResponse(existingAccount);
+            }
+            catch (Exception ex)
+            {
+                return new AccountResponse($"An error ocurred while updating account: {ex.Message}");
+            }
+        }
+
+        public async Task<AccountResponse> UpdateInterestAsync(string accountNumber, Account account)
+        {
+            var existingAccount = await _accountRepository.FindByAccountNumberAsync(accountNumber);
+
+            if (existingAccount == null) { return new AccountResponse("Account not found"); }
+
+            if (existingAccount.DebtMoney > 0)
+            {
+                return new AccountResponse("Account has debt, first pay debt to change Type and Rate of Interest");
+            }
+
+
+            existingAccount.RateInterest = account.RateInterest;
+            existingAccount.TypeOfInterest = account.TypeOfInterest;
+
+            try
+            {
+                _accountRepository.Update(existingAccount);
+                await _unitOfWork.CompleteAsync();
+
+                return new AccountResponse(existingAccount);
+            }
+            catch (Exception ex)
+            {
+                return new AccountResponse($"An error ocurred while updating account: {ex.Message}");
+            }
         }
     }
 }
