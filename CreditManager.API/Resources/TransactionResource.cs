@@ -9,7 +9,7 @@ namespace CreditManager.API.Resources
     {
         public int Id { get; set; }
         public float TotalAmount { get; set; }
-        public char Type { get; set; }
+        public string Type { get; set; }
         public DateTime Date { get; set; }
 
         public string AccountNumber { get; set; }

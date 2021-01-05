@@ -1,5 +1,6 @@
 ﻿
 using CreditManager.API.Domain.Models;
+using CreditManager.API.Extensions;
 using CreditManager.API.Resources;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,9 @@ namespace CreditManager.API.Mapping
             CreateMap<AccountResource, Account>();
             CreateMap<ProfileResource, Profile>();
             CreateMap<UserResource, User>();
-            CreateMap<TransactionResource, Transaction>();
+            CreateMap<TransactionResource, Transaction>()
+                .ForMember(src => src.Type, opt => opt.MapFrom(src => src.Type.ToDescriptionString()));
+
             CreateMap<TransactionDetailsResource, TransactionDetails>();
 
             CreateMap<SaveAccountResource, Account>();

@@ -74,8 +74,8 @@ namespace CreditManager.API.Services
             {
                 AccountNumber = existingAccount.AccountNumber,
                 Date = DateTimeGetter.GetDateTimeFromPeru(),
-                TotalAmount = account.AvailableMoney - existingAccount.AvailableMoney, 
-                Type = 'A'
+                TotalAmount = account.AvailableMoney - existingAccount.AvailableMoney,
+                Type = ETransactionType.AsignacionCredito
             };
 
 

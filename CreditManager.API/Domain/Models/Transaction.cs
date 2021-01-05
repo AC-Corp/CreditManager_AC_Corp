@@ -9,7 +9,7 @@ namespace CreditManager.API.Domain.Models
     {
         public int Id { get; set; }
         public float TotalAmount { get; set; }
-        public char Type { get; set; }
+        public ETransactionType Type { get; set; }
         public DateTime Date { get; set; }
         public string AccountNumber { get; set; }
         public Account Account { get; set; }

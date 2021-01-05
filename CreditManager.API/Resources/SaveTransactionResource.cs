@@ -11,7 +11,7 @@ namespace CreditManager.API.Resources
         [Required]
         public float TotalAmount { get; set; }
         [Required]
-        public char Type { get; set; }
+        public string Type { get; set; }
         [Required]
         public DateTime Date { get; set; }
         [Required]

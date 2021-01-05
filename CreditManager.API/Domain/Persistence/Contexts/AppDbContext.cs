@@ -117,11 +117,30 @@ namespace CreditManager.API.Domain.Persistence.Contexts
             builder.Entity<Transaction>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Transaction>().Property(t => t.TotalAmount).IsRequired();
             builder.Entity<Transaction>().Property(t => t.Type).IsRequired().HasMaxLength(1);
+            builder.Entity<Transaction>().Property(t => t.Type).HasConversion<string>();
             builder.Entity<Transaction>().Property(t => t.Date).IsRequired();
             builder.Entity<Transaction>()
                 .HasMany(t => t.TransactionDetails)
                 .WithOne(td => td.Transaction)
                 .HasForeignKey(td => td.TransactionId);
+            builder.Entity<Transaction>().HasData(
+                    new Transaction
+                    {
+                        Id = 1,
+                        AccountNumber = "71222449186",
+                        Date = DateTime.Now,
+                        TotalAmount = 100,
+                        Type = ETransactionType.CompraProductos
+                    },
+                    new Transaction
+                    {
+                        Id = 2,
+                        AccountNumber = "71222449186",
+                        Date = DateTime.Now,
+                        TotalAmount = 100,
+                        Type = ETransactionType.AsignacionCredito
+                    }
+                );
             // TODO: falta ver que cuando se agrege un movimiento, se modifique el saldo y la deuda, esto se haria en el Service
             #endregion
 
