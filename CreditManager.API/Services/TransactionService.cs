@@ -24,30 +24,50 @@ namespace CreditManager.API.Services
 
         public async Task<TransactionResponse> SaveAsync(Transaction transaction)
         {
-            var existingAccount = await _accountRepository.FindByAccountNumberAsync(transaction.AccountNumber);
+            /*var existingAccount = await _accountRepository.FindByAccountNumberAsync(transaction.AccountNumber);
 
-            if (transaction.TotalAmount <= existingAccount.AvailableMoney)
+            if (existingAccount is null)
             {
-                // TODO: Agregar lo de Transaction Details
-                // TODO: Probar que a los objetos TD que se pasen, 
-                //se les ponga el objeto padre Transaction y ver que se registren correctamente
-
-                try
-                {
-                    await  _transactionRepository.AddAsync(transaction);
-                    await _unitOfWork.CompleteAsync();
-                    return new TransactionResponse(transaction);
-                }
-                catch (Exception ex)
-                {
-                    return new TransactionResponse($"An error ocurred while saving the transaction: {ex.Message}");
-                }
-
+                return new TransactionResponse($"Don't exists an account with that account number");
             }
-            else
+            switch (transaction.Type)
             {
-                throw new Exception("You don't have enough money");
+                case ETransactionType.CompraProductos:
+                    if (transaction.TotalAmount <= existingAccount.AvailableMoney)
+                    {
+                        existingAccount.AvailableMoney -= transaction.TotalAmount;
+
+                        try
+                        {
+                            _accountRepository.Update(existingAccount);
+                            await _transactionRepository.AddAsync(transaction);
+                            await _unitOfWork.CompleteAsync();
+                            return new TransactionResponse(transaction);
+                        }
+                        catch (Exception ex)
+                        {
+                            return new TransactionResponse($"An error ocurred while saving the transaction: {ex.Message}");
+                        }
+
+                    }
+                    else
+                    {
+                        throw new Exception("You don't have enough money");
+                    }
+                    break;
+                case ETransactionType.AsignacionCredito:
+                    return new TransactionResponse($"Operation invalid for Transaction of Asignacion Credito Type");
+                    break;
+                case ETransactionType.PagoDeuda: //SUMA A LA CANTIDAD
+                    break;
+                case ETransactionType.PagoInteres:             //para pago Mant e Interes, solo se guarda
+                case ETransactionType.PagoMantenimiento:
+
+                    break;
             }
+            */
+
+            return null;
         }
 
         public async Task<IEnumerable<Transaction>> ListAsync()

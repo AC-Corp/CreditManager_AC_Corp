@@ -41,6 +41,8 @@ namespace CreditManager.API
 
             services.AddAutoMapper(typeof(Startup));
             services.AddCustomSwagger();
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +57,12 @@ namespace CreditManager.API
 
             app.UseRouting();
 
+            app.UseCors(x => x
+            .SetIsOriginAllowed(origin => true)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -63,6 +71,7 @@ namespace CreditManager.API
             });
 
             app.UseCustomSwagger();
+
         }
     }
 }
