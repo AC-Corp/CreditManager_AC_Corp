@@ -13,6 +13,11 @@ namespace CreditManager.API.Persistence.Repositories
     {
         public ProfileRepository(AppDbContext context) : base(context) { }
 
+        public async Task AddAsync(Profile profile)
+        {
+            await _context.Profiles.AddAsync(profile);
+        }
+
         public async Task<IEnumerable<Profile>> ListAsync()
         {
             return await _context.Profiles.ToListAsync();
