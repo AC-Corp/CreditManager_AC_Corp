@@ -20,8 +20,8 @@ namespace CreditManager.API.Persistence.Repositories
 
         public async Task<bool> FindByProfileId(int profileId)
         {
-            var user = await _context.Users.Where(u => u.ProfileId == profileId).FirstOrDefaultAsync();
-            return user!=null;
+            var profile = await _context.Profiles.Where(u => u.Id == profileId).FirstOrDefaultAsync();
+            return profile!=null;
         }
 
         public async Task<string> FindDniById(int id)
